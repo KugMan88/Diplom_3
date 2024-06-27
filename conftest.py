@@ -1,8 +1,6 @@
 import pytest
 from selenium import webdriver
 from helpers import *
-from locators.user_account_locators import UserAccountLocators
-from locators.header_locators import HeaderLocators
 from pages.main_page import MainPage
 from pages.user_account_page import UserAccountPage
 import requests
@@ -44,9 +42,9 @@ def create_and_delete_user():
 @pytest.fixture
 def login(driver, create_and_delete_user):
     main_page = MainPage(driver)
+    user_account_page = UserAccountPage(driver)
     main_page.click_on_enter_btn()
-    main_page.click_to_element(HeaderLocators.ACCOUNT_BTN)
-    personal_account_page = UserAccountPage(driver)
-    personal_account_page.set_text_to_element(UserAccountLocators.INPUT_EMAIL, create_and_delete_user[0]['email'])
-    personal_account_page.set_text_to_element(UserAccountLocators.INPUT_PASSWORD, create_and_delete_user[0]['password'])
-    personal_account_page.click_to_visible_element(UserAccountLocators.ENTER_BTN)
+    user_account_page.login(
+        email=create_and_delete_user[0]['email'],
+        password=create_and_delete_user[0]['password']
+    )

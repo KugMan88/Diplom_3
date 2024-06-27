@@ -39,13 +39,37 @@ class MainPage(BasePage):
 
     @allure.step('Создание заказа и получение его номера')
     def make_order_and_get_order_number(self):
-        self.wait_visibility_element(MainPageLocators.INGREDIENT_BUN)
+        self.find_element(MainPageLocators.INGREDIENT_BUN)
         self.drag_and_drop_element(MainPageLocators.INGREDIENT_BUN, MainPageLocators.ORDER_BASKET)
         self.drag_and_drop_element(MainPageLocators.INGREDIENT_FILLING, MainPageLocators.ORDER_BASKET)
         self.find_element(MainPageLocators.CREATE_ORDER_BTN)
         self.move_to_element_and_click(MainPageLocators.CREATE_ORDER_BTN)
-        self.wait_visibility_element(MainPageLocators.ORDER_STATUS_TEXT)
+        self.find_element(MainPageLocators.ORDER_STATUS_TEXT)
         self.wait_invisibility_element(MainPageLocators.DEFAULT_ORDER_NUMBER)
         order = self.get_text_of_element(MainPageLocators.ORDER_NUMBER)
         self.move_to_element_and_click(MainPageLocators.CLOSE_BTN)
         return order
+
+    @allure.step('Получение текста заголовка всплывающего окна')
+    def get_ingredient_popup_title(self):
+        return self.get_text_of_element(MainPageLocators.INGREDIENT_POPUP_TITLE)
+
+    @allure.step("Проверка видимости всплывающего окна ингредиента")
+    def is_ingredient_popup_visible(self):
+        return self.check_element(MainPageLocators.INGREDIENT_POPUP).is_displayed() == False
+
+    @allure.step('Клик по элементу')
+    def click_on_element(self):
+        self.find_element(MainPageLocators.INGREDIENT_BUN)
+
+    @allure.step('Проверка номера заказа')
+    def check_order_status_text(self):
+        return self.find_element(MainPageLocators.ORDER_NUMBER)
+
+    @allure.step('Проверка видимости текста статуса заказа')
+    def is_order_status_text_visible(self):
+        return self.check_element(MainPageLocators.ORDER_STATUS_TEXT).is_displayed() == True
+
+    @allure.step('Заголовок "Соберите бургер"')
+    def check_burger_title(self):
+        return self.find_element(MainPageLocators.BURGER_CONSTRUCTOR_TITLE)

@@ -15,3 +15,11 @@ class PasswordRecoverPage(BasePage):
     @allure.step('Клик по иконке Показать/скрыть пароль')
     def click_on_show_password_icon(self):
         self.click_to_visible_element(PasswordRecoverLocators.SHOW_PASSWORD_ICON)
+
+    @allure.step('Проверка видимости кнопки "Сохранить"')
+    def is_save_button_visible(self):
+        return self.find_element(PasswordRecoverLocators.SAVE_BTN).is_displayed()
+
+    @allure.step('Проверка активности поля пароля')
+    def is_password_field_active(self):
+        return self.driver.find_element(PasswordRecoverLocators.INPUT_PASSWORD_ACTIVE)

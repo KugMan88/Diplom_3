@@ -1,6 +1,5 @@
 import allure
 from data import Urls
-from locators.user_account_locators import UserAccountLocators
 from pages.user_account_page import UserAccountPage
 from pages.header_page import HeaderPage
 from conftest import driver, login, create_and_delete_user
@@ -20,9 +19,10 @@ class TestUserAccount:
 
     @allure.title('Проверка выхода из аккаунта')
     def test_logout(self, driver, login):
-        HeaderPage(driver).click_user_account_btn()
-        UserAccountPage(driver).wait_visibility_element(UserAccountLocators.PROFILE_BTN)
-        UserAccountPage(driver).click_logout_btn()
-        UserAccountPage(driver).wait_visibility_element(UserAccountLocators.ENTER_BTN)
-        btn_text = UserAccountPage(driver).get_text_of_element(UserAccountLocators.ENTER_BTN)
-        assert btn_text == 'Войти'
+        header_page = HeaderPage(driver)
+        account_page = UserAccountPage(driver)
+        header_page.click_user_account_btn()
+        account_page.is_profile_button_visible()
+        account_page.click_logout_btn()
+        account_page.is_enter_button_visible()
+        assert account_page.get_enter_button_text() == 'Войти'

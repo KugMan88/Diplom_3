@@ -40,10 +40,6 @@ class BasePage:
     def check_invisibility(self, locator):
         return WebDriverWait(self.driver, 15).until(EC.invisibility_of_element(locator))
 
-    @allure.step('Ожидание видимости элемента на странице')
-    def wait_visibility_element(self, locator):
-        WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(locator))
-
     @allure.step('Ожидание невидимости элемента на странице')
     def wait_invisibility_element(self, locator):
         return WebDriverWait(self.driver, 15).until(EC.invisibility_of_element_located(locator))
@@ -66,10 +62,8 @@ class BasePage:
 
     @allure.step('Перетаскивание элемента')
     def drag_and_drop_element(self, locator_from, locator_to):
-        WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(locator_from))
-        WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(locator_to))
-        element_from = self.driver.find_element(*locator_from)
-        element_to = self.driver.find_element(*locator_to)
+        element_from = self.find_element(locator_from)
+        element_to = self.find_element(locator_to)
         self.driver.execute_script("""
                    var source = arguments[0];
                    var target = arguments[1];
