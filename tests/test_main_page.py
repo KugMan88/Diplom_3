@@ -36,4 +36,4 @@ class TestMainPage:
         main_page.add_sauce_to_order_basket()
         main_page.click_order_btn()
         main_page.check_order_status_text()
-        assert main_page.is_order_status_text_visible
+        assert main_page.is_order_status_text_visible()

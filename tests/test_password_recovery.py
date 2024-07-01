@@ -27,9 +27,10 @@ class TestPasswordRecover:
 
     @allure.title('Проверка активности поля пароль после клика по иконке показать/скрыть')
     def test_active_password_field(self, driver, create_and_delete_user):
-        PasswordRecoverPage(driver).open_page(Urls.FORGOT_PASSWORD_PAGE)
-        PasswordRecoverPage(driver).set_email_for_recover_password(create_and_delete_user[0]['email'])
-        PasswordRecoverPage(driver).click_recover_btn()
-        PasswordRecoverPage(driver).is_save_button_visible()
-        PasswordRecoverPage(driver).click_on_show_password_icon()
-        assert PasswordRecoverPage(driver).is_password_field_active
+        password_recover_page = PasswordRecoverPage(driver)
+        password_recover_page.open_page(Urls.FORGOT_PASSWORD_PAGE)
+        password_recover_page.set_email_for_recover_password(create_and_delete_user[0]['email'])
+        password_recover_page.click_recover_btn()
+        password_recover_page.is_save_button_visible()
+        password_recover_page.click_on_show_password_icon()
+        assert password_recover_page.is_password_field_active()

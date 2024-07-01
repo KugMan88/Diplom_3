@@ -9,9 +9,10 @@ from conftest import driver, login, create_and_delete_user
 class TestOrderListPage:
     @allure.title('Проверка всплывающего окна с деталями заказа')
     def test_open_order_details_popup(self, driver):
+        orders_page = OrdersPage(driver)
         HeaderPage(driver).click_orders_list_btn()
-        OrdersPage(driver).click_order()
-        assert OrdersPage(driver).is_order_details_popup_opened
+        orders_page.click_order()
+        assert orders_page.is_order_details_popup_opened()
 
     @allure.title('Проверка отображения созданного заказа в Ленте заказов')
     def test_new_order_in_orderlist(self, driver, login, create_and_delete_user):

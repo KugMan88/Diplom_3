@@ -22,4 +22,4 @@ class PasswordRecoverPage(BasePage):
 
     @allure.step('Проверка активности поля пароля')
     def is_password_field_active(self):
-        return self.driver.find_element(PasswordRecoverLocators.INPUT_PASSWORD_ACTIVE)
+        return self.find_element(PasswordRecoverLocators.INPUT_PASSWORD_ACTIVE)
